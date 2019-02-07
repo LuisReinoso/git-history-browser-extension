@@ -4,6 +4,7 @@ Aprende del pasado viendo los cambios en los archivos de los proyectos de github
 
 ## Instalación
 **Firefox**: [https://addons.mozilla.org/es/firefox/addon/github-history/](https://addons.mozilla.org/es/firefox/addon/github-history/)
+
 **Chrome**: [https://chrome.google.com/webstore/detail/github-history-browser-ex/laghnmifffncfonaoffcndocllegejnf](https://chrome.google.com/webstore/detail/github-history-browser-ex/laghnmifffncfonaoffcndocllegejnf)
 
 ## Firefox
