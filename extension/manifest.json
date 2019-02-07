@@ -1,0 +1,14 @@
+{
+  "manifest_version": 2,
+  "name": "Github History Browser Extension",
+  "author": "Luis Reinoso",
+  "description": "Agrega un botón a la interfáz de archivos de github para ver su historial / Add a button to the github file interface to see its history",
+  "homepage_url": "https://github.com/LuisReinoso/github-history-browser-extension",
+  "version": "1.0.0",
+  "content_scripts": [
+    {
+      "matches": ["https://github.com/*/*/blob/*"],
+      "js": ["main.js"]
+    }
+  ]
+}
