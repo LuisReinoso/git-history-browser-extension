@@ -12,9 +12,9 @@
     }
   ],
   "icons": {
-    "16": "icons/github-history-16x16.png",
-    "48": "icons/github-history-48x48.png",
-    "128": "icons/github-history-128x128.png",
-    "500": "icons/github-history-500x500.png"
+    "16": "icons/git-history-16x16.png",
+    "48": "icons/git-history-48x48.png",
+    "128": "icons/git-history-128x128.png",
+    "500": "icons/git-history-500x500.png"
   }
 }
