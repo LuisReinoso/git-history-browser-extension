@@ -7,7 +7,7 @@
   "version": "1.0.2",
   "content_scripts": [
     {
-      "matches": ["https://github.com/*"],
+      "matches": ["https://github.com/*", "https://gitlab.com/*"],
       "js": ["main.js"],
       "run_at": "document_end"
     }
