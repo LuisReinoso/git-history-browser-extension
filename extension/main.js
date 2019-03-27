@@ -2,9 +2,7 @@ let oldUrl = '';
 switch (location.hostname) {
   case 'github.com':
     this.isButtonInsertedGithub(document.URL);
-    document.addEventListener('pjax:end', () => {
-      isButtonInsertedGithub(document.URL));
-    });
+    document.addEventListener('pjax:end', () => isButtonInsertedGithub(document.URL));
     break;
   case 'bitbucket.org':
     this.isButtonInsertedBitbucket(document.URL);
