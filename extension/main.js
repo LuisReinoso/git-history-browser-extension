@@ -3,27 +3,9 @@ let oldUrl = '';
 switch (urlProvider[2]) {
   case 'github.com':
     this.isButtonInsertedGithub(document.URL);
-    oldUrl = document.URL;
-    // It's necessary because git use pjax to refresh views
-    // https://stackoverflow.com/questions/3522090/event-when-window-location-href-changes#46428962
-    window.onload = () => {
-      let bodyList = document.querySelector('body');
-      const observer = new MutationObserver(mutations => {
-        mutations.forEach(mutation => {
-          if (oldUrl != document.URL) {
-            if (isButtonInsertedGithub(document.URL)) {
-              oldUrl = document.URL;
-            }
-          }
-        });
-      });
-
-      let config = {
-        childList: true,
-        subtree: true
-      };
-      observer.observe(bodyList, config);
-    };
+    document.addEventListener('pjax:end', () => {
+      isButtonInsertedGithub(document.URL));
+    });
     break;
   case 'bitbucket.org':
     this.isButtonInsertedBitbucket(document.URL);
