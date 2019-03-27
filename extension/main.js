@@ -1,6 +1,5 @@
-const urlProvider = document.URL.split('/');
 let oldUrl = '';
-switch (urlProvider[2]) {
+switch (location.hostname) {
   case 'github.com':
     this.isButtonInsertedGithub(document.URL);
     oldUrl = document.URL;
