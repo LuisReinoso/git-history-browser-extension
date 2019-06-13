@@ -5,7 +5,10 @@ switch (location.hostname) {
     document.addEventListener('pjax:end', () => isButtonInsertedGithub(document.URL));
     break;
   case 'bitbucket.org':
-    this.isButtonInsertedBitbucket(document.URL);
+    // TODO: search event listener similar to github.
+    setTimeout(() => {
+      this.isButtonInsertedBitbucket(document.URL);
+    }, 1000)
     oldUrl = document.URL;
     // It's necessary because git use pjax to refresh views
     // https://stackoverflow.com/questions/3522090/event-when-window-location-href-changes#46428962
@@ -37,26 +40,33 @@ switch (location.hostname) {
 
 function isButtonInsertedBitbucket(url) {
   if (
-    /https:\/\/bitbucket\.org\/[a-zA-Z0-9-_\.]*\/[a-zA-Z0-9-_\.]*\/src\/.*fileviewer.*/.test(
+    /https:\/\/bitbucket\.org\/[a-zA-Z0-9-_\.]*\/[a-zA-Z0-9-_\.]*\/src\/[a-zA-Z0-9-_\.]*\/.*/.test(
       url
     )
   ) {
     const auxUrl = url.split('/');
+    const lastUrlItemIndex = auxUrl[auxUrl.length];
+    const isNotAFile = auxUrl[lastUrlItemIndex] === ''; 
+    if (isNotAFile) {
+      return false;
+    }
+    
     auxUrl[2] = 'bitbucket.githistory.xyz';
     url = auxUrl.join('/');
+    const buttonWrapper = document.createElement('div');
     const buttonGitHistory = document.createElement('a');
     buttonGitHistory.innerHTML = 'Open in Git History';
     buttonGitHistory.setAttribute(
       'class',
-      'aui-button pjax-trigger source-toggle'
+      'Button__StyledLink-sc-1o41kgk-1 cTayNF'
     );
     buttonGitHistory.setAttribute('href', url);
+    buttonWrapper.appendChild(buttonGitHistory);
     try {
-      document
-        .getElementsByClassName('secondary-actions')[0]
-        .childNodes[1].appendChild(buttonGitHistory);
+      document.getElementsByClassName('css-wrfxmk e1fwoj8y0')[0].appendChild(buttonWrapper);  
       return true;
     } catch (error) {
+      console.log(error);
       return false;
     }
   } else {
