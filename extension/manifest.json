@@ -4,7 +4,7 @@
   "author": "Luis Reinoso",
   "description": "Agrega un botón a github para ver el historial del archivo / Add a button to github to see the file history",
   "homepage_url": "https://github.com/LuisReinoso/git-history-browser-extension",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "content_scripts": [
     {
       "matches": ["https://github.com/*", "https://gitlab.com/*", "https://bitbucket.org/*"],
