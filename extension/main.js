@@ -58,12 +58,24 @@ function isButtonInsertedBitbucket(url) {
     buttonGitHistory.innerHTML = 'Open in Git History';
     buttonGitHistory.setAttribute(
       'class',
-      'Button__StyledLink-sc-1o41kgk-1 cTayNF'
+      'css-1puxblk'
     );
+    buttonGitHistory.setAttribute('type', 'button');
     buttonGitHistory.setAttribute('href', url);
     buttonWrapper.appendChild(buttonGitHistory);
+    
+    buttonGitHistory.onmouseover = function() {
+      this.style.background = "rgba(9, 30, 66, 0.08)";
+      this.style.cursor = "pointer";
+    }
+    
+    buttonGitHistory.onmouseout = function() {
+      this.style.background = "rgba(9, 30, 66, 0.04)";
+      this.style.cursor = "default";
+    }
+    
     try {
-      document.getElementsByClassName('css-wrfxmk e1fwoj8y0')[0].appendChild(buttonWrapper);  
+      document.getElementsByClassName('css-1dgu707 e1fwoj8y0')[0].appendChild(buttonWrapper);  
       return true;
     } catch (error) {
       console.log(error);
