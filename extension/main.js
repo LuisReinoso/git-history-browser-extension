@@ -88,7 +88,7 @@ function isButtonInsertedBitbucket(url) {
 
 function isButtonInsertedGitlab(url) {
   if (
-    /https:\/\/gitlab\.com\/[a-zA-Z0-9-_\.]*\/[a-zA-Z0-9-_\.]*\/blob\/.*/.test(
+    /https:\/\/gitlab\.com\/[a-zA-Z0-9-_\.]*\/[a-zA-Z0-9-_\.]*\/-\/blob\/.*/.test(
       url
     )
   ) {
@@ -98,7 +98,7 @@ function isButtonInsertedGitlab(url) {
     const buttonGitHistory = document.createElement('a');
     buttonGitHistory.innerHTML = 'Open in Git History';
     buttonGitHistory.setAttribute('class', 'btn btn-default btn-sm');
-    buttonGitHistory.setAttribute('href', url);
+    buttonGitHistory.setAttribute('href', url.replace('/-/','/'));
     try {
       document
         .getElementsByClassName('file-actions')[0]
