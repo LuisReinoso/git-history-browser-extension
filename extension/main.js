@@ -1,21 +1,22 @@
 let oldUrl = '';
 switch (location.hostname) {
   case 'github.com':
-    this.isButtonInsertedGithub(document.URL);
-    document.addEventListener('pjax:end', () => isButtonInsertedGithub(document.URL));
+    document.addEventListener('turbo:load', () =>
+      isButtonInsertedGithub(document.URL)
+    );
     break;
   case 'bitbucket.org':
     // TODO: search event listener similar to github.
     setTimeout(() => {
       this.isButtonInsertedBitbucket(document.URL);
-    }, 1000)
+    }, 1000);
     oldUrl = document.URL;
     // It's necessary because git use pjax to refresh views
     // https://stackoverflow.com/questions/3522090/event-when-window-location-href-changes#46428962
     window.onload = () => {
       let bodyList = document.querySelector('body');
-      const observer = new MutationObserver(mutations => {
-        mutations.forEach(mutation => {
+      const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
           if (oldUrl != document.URL) {
             if (isButtonInsertedBitbucket(document.URL)) {
               oldUrl = document.URL;
@@ -26,7 +27,7 @@ switch (location.hostname) {
 
       let config = {
         childList: true,
-        subtree: true
+        subtree: true,
       };
       observer.observe(bodyList, config);
     };
@@ -46,36 +47,35 @@ function isButtonInsertedBitbucket(url) {
   ) {
     const auxUrl = url.split('/');
     const lastUrlItemIndex = auxUrl[auxUrl.length];
-    const isNotAFile = auxUrl[lastUrlItemIndex] === ''; 
+    const isNotAFile = auxUrl[lastUrlItemIndex] === '';
     if (isNotAFile) {
       return false;
     }
-    
+
     auxUrl[2] = 'bitbucket.githistory.xyz';
     url = auxUrl.join('/');
     const buttonWrapper = document.createElement('div');
     const buttonGitHistory = document.createElement('a');
     buttonGitHistory.innerHTML = 'Open in Git History';
-    buttonGitHistory.setAttribute(
-      'class',
-      'css-1puxblk'
-    );
+    buttonGitHistory.setAttribute('class', 'css-1puxblk');
     buttonGitHistory.setAttribute('type', 'button');
     buttonGitHistory.setAttribute('href', url);
     buttonWrapper.appendChild(buttonGitHistory);
-    
-    buttonGitHistory.onmouseover = function() {
-      this.style.background = "rgba(9, 30, 66, 0.08)";
-      this.style.cursor = "pointer";
-    }
-    
-    buttonGitHistory.onmouseout = function() {
-      this.style.background = "rgba(9, 30, 66, 0.04)";
-      this.style.cursor = "default";
-    }
-    
+
+    buttonGitHistory.onmouseover = function () {
+      this.style.background = 'rgba(9, 30, 66, 0.08)';
+      this.style.cursor = 'pointer';
+    };
+
+    buttonGitHistory.onmouseout = function () {
+      this.style.background = 'rgba(9, 30, 66, 0.04)';
+      this.style.cursor = 'default';
+    };
+
     try {
-      document.getElementsByClassName('css-1dgu707 e1fwoj8y0')[0].appendChild(buttonWrapper);  
+      document
+        .getElementsByClassName('css-1dgu707 e1fwoj8y0')[0]
+        .appendChild(buttonWrapper);
       return true;
     } catch (error) {
       console.log(error);
@@ -98,7 +98,7 @@ function isButtonInsertedGitlab(url) {
     const buttonGitHistory = document.createElement('a');
     buttonGitHistory.innerHTML = 'Open in Git History';
     buttonGitHistory.setAttribute('class', 'btn btn-default btn-sm');
-    buttonGitHistory.setAttribute('href', url.replace('/-/','/'));
+    buttonGitHistory.setAttribute('href', url.replace('/-/', '/'));
     try {
       document
         .getElementsByClassName('file-actions')[0]
@@ -126,9 +126,19 @@ function isButtonInsertedGithub(url) {
     buttonGithubHistory.setAttribute('class', 'btn btn-sm BtnGroup-item');
     buttonGithubHistory.setAttribute('href', url);
     try {
-      document
-        .getElementById('raw-url')
-        .parentNode.appendChild(buttonGithubHistory);
+      const oldGithubUiWrapper = document.getElementById('raw-url');
+
+      if (oldGithubUiWrapper) {
+        oldGithubUiWrapper.parentNode.appendChild(buttonGithubHistory);
+      } else {
+        const githubUiWrapper = document.getElementsByClassName(
+          'Box-sc-g0xbh4-0 iBylDf'
+        )[0];
+        buttonGithubHistory.setAttribute('class', 'kDtVkY');
+        buttonGithubHistory.setAttribute('data-size', 'small');
+        githubUiWrapper.appendChild(buttonGithubHistory);
+      }
+
       return true;
     } catch (error) {
       return false;
