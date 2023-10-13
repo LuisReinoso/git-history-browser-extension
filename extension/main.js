@@ -1,8 +1,7 @@
 let oldUrl = '';
 switch (location.hostname) {
   case 'github.com':
-    this.isButtonInsertedGithub(document.URL);
-    document.addEventListener('pjax:end', () =>
+    document.addEventListener('turbo:load', () =>
       isButtonInsertedGithub(document.URL)
     );
     break;
