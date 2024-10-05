@@ -132,9 +132,9 @@ function isButtonInsertedGithub(url) {
         oldGithubUiWrapper.parentNode.appendChild(buttonGithubHistory);
       } else {
         const githubUiWrapper = document.getElementsByClassName(
-          'Box-sc-g0xbh4-0 iBylDf'
+          'Box-sc-g0xbh4-0 kVWtTz'
         )[0];
-        buttonGithubHistory.setAttribute('class', 'kDtVkY');
+        buttonGithubHistory.setAttribute('class', 'types__StyledButton-sc-ws60qy-0 gGdPyq prc-Button-IconButton-szpyj');
         buttonGithubHistory.setAttribute('data-size', 'small');
         githubUiWrapper.appendChild(buttonGithubHistory);
       }
