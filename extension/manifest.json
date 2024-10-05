@@ -1,5 +1,5 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "Git History Browser Extension",
   "author": "Luis Reinoso",
   "description": "Agrega un botón a github para ver el historial del archivo / Add a button to github to see the file history",
@@ -7,7 +7,11 @@
   "version": "1.0.8",
   "content_scripts": [
     {
-      "matches": ["https://github.com/*", "https://gitlab.com/*", "https://bitbucket.org/*"],
+      "matches": [
+        "https://github.com/*",
+        "https://gitlab.com/*",
+        "https://bitbucket.org/*"
+      ],
       "js": ["main.js"],
       "run_at": "document_end"
     }
@@ -17,5 +21,6 @@
     "48": "icons/git-history-48x48.png",
     "128": "icons/git-history-128x128.png",
     "500": "icons/git-history-500x500.png"
-  }
+  },
+  "permissions": ["scripting"]
 }
