@@ -22,5 +22,11 @@
     "128": "icons/git-history-128x128.png",
     "500": "icons/git-history-500x500.png"
   },
-  "permissions": ["scripting"]
+  "permissions": ["scripting"],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "{22f8d4f9-a922-444c-926e-b663e1ef3fe6}",
+      "strict_min_version": "58.0"
+    }
+  }
 }
