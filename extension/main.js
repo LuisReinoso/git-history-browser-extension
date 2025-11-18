@@ -1,9 +1,9 @@
 let oldUrl = '';
 switch (location.hostname) {
   case 'github.com':
-    document.addEventListener('turbo:load', () =>
-      isButtonInsertedGithub(document.URL)
-    );
+    document.addEventListener('turbo:load', () => {
+      isButtonInsertedGithub(document.URL);
+    });
     break;
   case 'bitbucket.org':
     // TODO: search event listener similar to github.
@@ -114,36 +114,64 @@ function isButtonInsertedGitlab(url) {
 
 function isButtonInsertedGithub(url) {
   if (
-    /https:\/\/github\.com\/[a-zA-Z0-9-_\.]*\/[a-zA-Z0-9-_\.]*\/blob\/.*/.test(
+    !/https:\/\/github\.com\/[a-zA-Z0-9-_\.]*\/[a-zA-Z0-9-_\.]*\/blob\/.*/.test(
       url
     )
   ) {
-    const auxUrl = url.split('/');
-    auxUrl[2] = 'github.githistory.xyz';
-    url = auxUrl.join('/');
-    const buttonGithubHistory = document.createElement('a');
-    buttonGithubHistory.innerHTML = 'Open in Git History';
-    buttonGithubHistory.setAttribute('class', 'btn btn-sm BtnGroup-item');
-    buttonGithubHistory.setAttribute('href', url);
-    try {
-      const oldGithubUiWrapper = document.getElementById('raw-url');
+    return false;
+  }
 
-      if (oldGithubUiWrapper) {
-        oldGithubUiWrapper.parentNode.appendChild(buttonGithubHistory);
-      } else {
-        const githubUiWrapper = document.getElementsByClassName(
-          'Box-sc-g0xbh4-0 kVWtTz'
-        )[0];
-        buttonGithubHistory.setAttribute('class', 'types__StyledButton-sc-ws60qy-0 gGdPyq prc-Button-IconButton-szpyj');
-        buttonGithubHistory.setAttribute('data-size', 'small');
-        githubUiWrapper.appendChild(buttonGithubHistory);
-      }
-
+  try {
+    if (document.querySelector('.git-history-button')) {
       return true;
-    } catch (error) {
+    }
+
+    const githubUiWrapper = document.querySelector('.react-blob-header-edit-and-raw-actions');
+    if (!githubUiWrapper) {
       return false;
     }
-  } else {
+
+    const auxUrl = url.split('/');
+    auxUrl[2] = 'github.githistory.xyz';
+    const historyUrl = auxUrl.join('/');
+
+    const wrapper = document.createElement('div');
+    const button = document.createElement('a');
+
+    button.classList.add('git-history-button');
+    button.href = historyUrl;
+    button.target = '_blank';
+
+    const buttonContent = document.createElement('span');
+    buttonContent.setAttribute('data-component', 'buttonContent');
+    buttonContent.setAttribute('data-align', 'center');
+    buttonContent.className = 'prc-Button-ButtonContent-HKbr-';
+
+    const buttonText = document.createElement('span');
+    buttonText.setAttribute('data-component', 'text');
+    buttonText.className = 'prc-Button-Label-pTQ3x';
+    buttonText.textContent = 'Open in Git History';
+
+    buttonContent.appendChild(buttonText);
+    button.appendChild(buttonContent);
+
+    button.className = 'prc-Button-ButtonBase-c50BI LinkButton-sc-1v6zkmg-0 iwmTUC git-history-button';
+    button.setAttribute('data-loading', 'false');
+    button.setAttribute('data-no-visuals', 'true');
+    button.setAttribute('data-size', 'small');
+    button.setAttribute('data-variant', 'default');
+
+    wrapper.appendChild(button);
+
+    const firstButtonGroup = githubUiWrapper.querySelector('.prc-ButtonGroup-ButtonGroup-vcMeG');
+    if (firstButtonGroup) {
+      firstButtonGroup.parentNode.insertBefore(wrapper, firstButtonGroup.nextSibling);
+    } else {
+      githubUiWrapper.appendChild(wrapper);
+    }
+
+    return true;
+  } catch (error) {
     return false;
   }
 }
